@@ -1,11 +1,18 @@
+import { NavLink, Routes, Route, Navigate } from 'react-router-dom'
 import './App.css'
+import Activities from './components/Activities.jsx'
+import Leaderboard from './components/Leaderboard.jsx'
+import Teams from './components/Teams.jsx'
+import Users from './components/Users.jsx'
+import Workouts from './components/Workouts.jsx'
 
-const codespaceName = import.meta.env.VITE_CODESPACE_NAME;
-const apiBaseUrl = codespaceName
+const codespaceName = import.meta.env.VITE_CODESPACE_NAME
+const backendHost = codespaceName
   ? `https://${codespaceName}-8000.app.github.dev`
-  : 'http://localhost:8000';
+  : 'http://localhost:8000'
+const apiBaseUrl = `${backendHost}/api`
 
-function App() {
+function Home() {
   return (
     <main className="container py-5">
       <div className="row align-items-center g-4">
@@ -17,10 +24,10 @@ function App() {
             and staying motivated.
           </p>
           <div className="d-flex gap-3 mt-4">
-            <a className="btn btn-primary btn-lg" href={`${apiBaseUrl}/api/health`}>
+            <a className="btn btn-primary btn-lg" href={`${apiBaseUrl}/health`}>
               Check API health
             </a>
-            <a className="btn btn-outline-secondary btn-lg" href="https://vite.dev/" target="_blank">
+            <a className="btn btn-outline-secondary btn-lg" href="https://vite.dev/" target="_blank" rel="noreferrer">
               Vite docs
             </a>
           </div>
@@ -39,6 +46,71 @@ function App() {
         </div>
       </div>
     </main>
+  )
+}
+
+function App() {
+  return (
+    <div className="app-shell">
+      <nav className="navbar navbar-expand-lg navbar-light bg-white border-bottom">
+        <div className="container-fluid">
+          <NavLink className="navbar-brand" to="/">
+            OctoFit Tracker
+          </NavLink>
+          <button
+            className="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#mainNavbar"
+            aria-controls="mainNavbar"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span className="navbar-toggler-icon" />
+          </button>
+          <div className="collapse navbar-collapse" id="mainNavbar">
+            <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
+              <li className="nav-item">
+                <NavLink className="nav-link" to="/users">
+                  Users
+                </NavLink>
+              </li>
+              <li className="nav-item">
+                <NavLink className="nav-link" to="/teams">
+                  Teams
+                </NavLink>
+              </li>
+              <li className="nav-item">
+                <NavLink className="nav-link" to="/activities">
+                  Activities
+                </NavLink>
+              </li>
+              <li className="nav-item">
+                <NavLink className="nav-link" to="/workouts">
+                  Workouts
+                </NavLink>
+              </li>
+              <li className="nav-item">
+                <NavLink className="nav-link" to="/leaderboard">
+                  Leaderboard
+                </NavLink>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+      <div className="container py-4">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/users" element={<Users apiBaseUrl={apiBaseUrl} />} />
+          <Route path="/teams" element={<Teams apiBaseUrl={apiBaseUrl} />} />
+          <Route path="/activities" element={<Activities apiBaseUrl={apiBaseUrl} />} />
+          <Route path="/workouts" element={<Workouts apiBaseUrl={apiBaseUrl} />} />
+          <Route path="/leaderboard" element={<Leaderboard apiBaseUrl={apiBaseUrl} />} />
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
+      </div>
+    </div>
   )
 }
 
