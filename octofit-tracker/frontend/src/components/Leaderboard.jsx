@@ -9,6 +9,8 @@ function Leaderboard({ apiBaseUrl }) {
     async function fetchLeaderboard() {
       try {
         setLoading(true)
+        // Codespaces endpoint example:
+        // `https://${import.meta.env.VITE_CODESPACE_NAME}-8000.app.github.dev/api/leaderboard`
         const response = await fetch(`${apiBaseUrl}/leaderboard`)
         const data = await response.json()
         setBoard(Array.isArray(data.leaderboard) ? data.leaderboard : data.leaderboard?.results || [])

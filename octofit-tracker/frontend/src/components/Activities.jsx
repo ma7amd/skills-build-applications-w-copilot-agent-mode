@@ -9,6 +9,8 @@ function Activities({ apiBaseUrl }) {
     async function fetchActivities() {
       try {
         setLoading(true)
+        // Codespaces endpoint example:
+        // `https://${import.meta.env.VITE_CODESPACE_NAME}-8000.app.github.dev/api/activities`
         const response = await fetch(`${apiBaseUrl}/activities`)
         const data = await response.json()
         setActivities(Array.isArray(data.activities) ? data.activities : data.activities?.results || [])

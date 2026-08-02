@@ -9,6 +9,8 @@ function Workouts({ apiBaseUrl }) {
     async function fetchWorkouts() {
       try {
         setLoading(true)
+        // Codespaces endpoint example:
+        // `https://${import.meta.env.VITE_CODESPACE_NAME}-8000.app.github.dev/api/workouts`
         const response = await fetch(`${apiBaseUrl}/workouts`)
         const data = await response.json()
         setWorkouts(Array.isArray(data.workouts) ? data.workouts : data.workouts?.results || [])

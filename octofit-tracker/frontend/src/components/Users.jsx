@@ -9,6 +9,8 @@ function Users({ apiBaseUrl }) {
     async function fetchUsers() {
       try {
         setLoading(true)
+        // Codespaces endpoint example:
+        // `https://${import.meta.env.VITE_CODESPACE_NAME}-8000.app.github.dev/api/users`
         const response = await fetch(`${apiBaseUrl}/users`)
         const data = await response.json()
         setUsers(Array.isArray(data.users) ? data.users : data.users?.results || [])

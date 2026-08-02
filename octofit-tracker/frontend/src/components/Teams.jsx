@@ -9,6 +9,8 @@ function Teams({ apiBaseUrl }) {
     async function fetchTeams() {
       try {
         setLoading(true)
+        // Codespaces endpoint example:
+        // `https://${import.meta.env.VITE_CODESPACE_NAME}-8000.app.github.dev/api/teams`
         const response = await fetch(`${apiBaseUrl}/teams`)
         const data = await response.json()
         setTeams(Array.isArray(data.teams) ? data.teams : data.teams?.results || [])
