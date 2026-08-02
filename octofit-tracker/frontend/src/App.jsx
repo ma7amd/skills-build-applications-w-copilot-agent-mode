@@ -1,5 +1,10 @@
 import './App.css'
 
+const codespaceName = import.meta.env.VITE_CODESPACE_NAME;
+const apiBaseUrl = codespaceName
+  ? `https://${codespaceName}-8000.app.github.dev`
+  : 'http://localhost:8000';
+
 function App() {
   return (
     <main className="container py-5">
@@ -12,7 +17,7 @@ function App() {
             and staying motivated.
           </p>
           <div className="d-flex gap-3 mt-4">
-            <a className="btn btn-primary btn-lg" href="http://localhost:8000/api/health">
+            <a className="btn btn-primary btn-lg" href={`${apiBaseUrl}/api/health`}>
               Check API health
             </a>
             <a className="btn btn-outline-secondary btn-lg" href="https://vite.dev/" target="_blank">
